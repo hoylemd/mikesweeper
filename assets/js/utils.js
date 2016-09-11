@@ -4,7 +4,10 @@ function what_time_is_it() {
 
 function random_int(min, max) {
   min = Math.ceil(min || 0);
-  max = Math.floor(max || 100);
+  if (!max) {
+    max = min;
+    min = 0;
+  }
 
   return Math.floor(Math.random() * (max - min)) + min;
 }

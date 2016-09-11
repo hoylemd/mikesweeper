@@ -17,6 +17,7 @@ function Tile(column, row) {
   var ground_texture = TextureCache['ground.png'];
   var excavated_texture = TextureCache['excavated.png'];
   var flag_texture = TextureCache['flag.png'];
+  var mine_texture = TextureCache['mine.png'];
   var exploded_texture = TextureCache['exploded.png'];
 
   // graphics objects
@@ -33,7 +34,7 @@ function Tile(column, row) {
   this.addChild(highlight);
 
   var adjacent_text = new PIXI.Text('')
-  adjacent_text.visible - false;
+  adjacent_text.visible = false;
   this.addChild(adjacent_text);
 
   // positioning
@@ -71,6 +72,14 @@ function Tile(column, row) {
   };
 
   // stage changers
+  this.increment_adjacent = function Tile_increment_adjacent() {
+    this.adjacent += 1;
+    adjacent_text.text = '' + this.adjacent;
+    // center the text
+    adjacent_text.x = (this.width - adjacent_text.width) / 2;
+    adjacent_text.y = (this.height - adjacent_text.height) / 2;
+  }
+
   this.dig = function Tile_dig() {
     this.excavated = true;
     ground_sprite.texture = excavated_texture;
@@ -96,7 +105,15 @@ function Tile(column, row) {
     if (this.mined) {
       this.events['mine_found'] = true;
     }
-  }
+  };
+
+  this.reveal = function Tile_reveal() {
+    if (this.mined) {
+      ground_sprite.texture = excavated_texture;
+      contents_sprite.texture = mine_texture;
+      contents_sprite.visible = true;
+    }
+  };
 
   // Set interactions (maybe I don't need this)
   this.on('mouseup', this.click)

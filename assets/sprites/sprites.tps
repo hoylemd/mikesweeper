@@ -193,6 +193,7 @@
             <key type="filename">../images/flag.png</key>
             <key type="filename">../images/ground.png</key>
             <key type="filename">../images/highlight.png</key>
+            <key type="filename">../images/mine.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -205,6 +206,7 @@
             <filename>../images/flag.png</filename>
             <filename>../images/ground.png</filename>
             <filename>../images/highlight.png</filename>
+            <filename>../images/mine.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
