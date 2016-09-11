@@ -19,6 +19,8 @@ function MinesweeperGame() {
   };
 
   this.grid = null;
+  this.mines = null;
+  this.remaining_mines = 0;
 
   Game.call(this);
 
@@ -45,5 +47,53 @@ function MinesweeperGame() {
     this.stage.addChild(tile);
     this.game_objects.push(tile);
   };
+
+  this.get_adjacent_tiles = function MinesweeperGame_get_adjacent_tiles(x, y) {
+    var tiles = [];
+
+    var left = x - 1;
+    var right = x + 1;
+    var up = y - 1;
+    var down = y + 1;
+
+    var left_ok = left >= 0;
+    var right_ok = right < this.GRID_COLUMNS;
+    var up_ok = up >= 0;
+    var down_ok = down < this.GRID_ROWS;
+
+    if (left_ok) {
+      if (up_ok) {
+        tiles.push(this.grid[left][up]);
+      }
+      tiles.push(this.grid[left][y]);
+      if (down_ok) {
+        tiles.push(this.grid[left][down]);
+      }
+    }
+
+    if (up_ok) {
+      tiles.push(this.grid[x][up]);
+    }
+    tiles.push(this.grid[x][y]);
+    if (down_ok) {
+      tiles.push(this.grid[x][down]);
+    }
+
+    if (right_ok) {
+      if (up_ok) {
+        tiles.push(this.grid[right][up]);
+      }
+      tiles.push(this.grid[right][y]);
+      if (down_ok) {
+        tiles.push(this.grid[right][down]);
+      }
+    }
+
+    return tiles;
+  }
+
+  this.report_mines = function MinesweeperGame_report_mines() {
+    this.log('There are ' + this.remaining_mines + ' mines remaining.');
+  }
 }
 MinesweeperGame.prototype = Object.create(Game.prototype);
