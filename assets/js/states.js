@@ -113,8 +113,13 @@ function MainState(game) {
     game.log(arguments.message);
   }
 
+  function handle_exploded(object, arguments) {
+    game.transition('game_over');
+  }
+
   this.event_handlers = {
-    'log': handle_log
+    'log': handle_log,
+    'exploded': handle_exploded
   };
 
   this.update = function MainState_update(timedelta) {

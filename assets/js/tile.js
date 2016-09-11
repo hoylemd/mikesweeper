@@ -102,11 +102,10 @@ function Tile(column, row) {
   }
 
   this.flag = function Tile_flag() {
-      this.flagged = !this.flagged;
-      flag_sprite.visible = this.flagged;
+    this.flagged = !this.flagged;
+    flag_sprite.visible = this.flagged;
 
-      this.events['flagged'] = {state: this.flagged};
-    }
+    this.events['flagged'] = {state: this.flagged};
   };
 
   this.reveal = function Tile_reveal() {
