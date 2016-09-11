@@ -6,48 +6,42 @@
 // Alias
 var TextureCache = PIXI.utils.TextureCache;
 
-var TILE_WIDTH = 128;
-var TILE_HEIGHT = 128;
-
+var TILE_WIDTH = 32;
+var TILE_HEIGHT = 32;
 
 function Tile(column, row) {
-  var none_texture = TextureCache['none.png'];
-  var x_texture = TextureCache['X.png'];
-  var o_texture = TextureCache['O.png'];
+  // engine things
+  this.events = {}; // Events have a name (string key) and a hash of arguments
 
-  PIXI.Sprite.call(this, none_texture);
-  this.visible = true;
+  // textures
+  var ground_texture = TextureCache['ground.png'];
+  var excavated_texture = TextureCache['excavated.png'];
+  var flag_texture = TextureCache['flag.png'];
+  var exploded_texture = TextureCache['exploded.png'];
 
-  this.events = {}; // Events have a name (string key) and an array of arguments
+  // graphics objects
+  PIXI.Container.call(this);
+  var ground_sprite = new PIXI.Sprite(ground_texture);
+  var contents_sprite = new PIXI.Sprite(flag_texture);
+  contents_sprite.visible = false;
+  var adjacent_text = new PIXI.Text('')
+  adjacent_text.visible - false;
+  this.addChild(ground_sprite);
+  this.addChild(contents_sprite);
+  this.addChild(adjacent_text);
 
-  this.owner = null;
-
+  // positioning
   this.column = column;
-  this.x = column + (TILE_WIDTH * column);
+  this.x = TILE_WIDTH * column;
   this.row = row;
-  this.y = row + (TILE_WIDTH * row);
+  this.y = TILE_WIDTH * row;
 
+  // engine methods
   this.update = function Tile_update(timedelta) {
     var new_events = this.events;
     this.events = {};
     return new_events;
   }
-
-  this.set_owner = function Tile_set_owner(owner) {
-    if (this.owner) {
-      return false;
-    }
-
-    this.owner = owner;
-    console.log(owner.name + " claimed (" + this.column + "," + this.row + ")");
-    if (owner.name === 'human') {
-      this.texture = x_texture;
-    } else if (owner.name === 'ai') {
-      this.texture = o_texture;
-    }
-
-    return true;
-  };
 
   // Input handlers
   this.interactive = true;
@@ -56,11 +50,14 @@ function Tile(column, row) {
     this.events['click'] = [];
   };
 
+  this.mouseover = function Tile_mouseover() {
+  };
+
   // Set interactions
   this.on('mouseup', this.click)
       .on('touchend', this.click);
 }
-Tile.prototype = Object.create(PIXI.Sprite.prototype);
+Tile.prototype = Object.create(PIXI.Container.prototype);
 
 Tile.TILE_WIDTH = TILE_WIDTH;
 Tile.TILE_HEIGHT = TILE_HEIGHT;
