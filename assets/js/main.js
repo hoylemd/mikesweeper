@@ -1,10 +1,11 @@
 // from utils.js
 //   what_time_is_it()
 // from tic_tac_toe.js:
-//   TicTacToeGame
+//   MinesweeperGame
 
 function main() {
-  var game = new TicTacToeGame();
+  var game = new MinesweeperGame();
+  window.the_game = game;
   game.start_time = what_time_is_it();
 
   function main_loop() {
