@@ -104,7 +104,7 @@
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
-            <enum type="AlgorithmSettings::SizeConstraints">AnySize</enum>
+            <enum type="AlgorithmSettings::SizeConstraints">POT</enum>
             <key>forceSquared</key>
             <false/>
             <key>maxRects</key>
@@ -141,7 +141,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>sprites.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -192,6 +192,7 @@
             <key type="filename">../images/exploded.png</key>
             <key type="filename">../images/flag.png</key>
             <key type="filename">../images/ground.png</key>
+            <key type="filename">../images/highlight.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -203,6 +204,7 @@
             <filename>../images/exploded.png</filename>
             <filename>../images/flag.png</filename>
             <filename>../images/ground.png</filename>
+            <filename>../images/highlight.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
