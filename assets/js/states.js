@@ -117,9 +117,14 @@ function MainState(game) {
     game.transition('game_over');
   }
 
+  function handle_reveal_area(object, arguments) {
+    game.reveal_area(object);
+  }
+
   this.event_handlers = {
     'log': handle_log,
-    'exploded': handle_exploded
+    'exploded': handle_exploded,
+    'reveal_area': handle_reveal_area
   };
 
   this.update = function MainState_update(timedelta) {
@@ -135,7 +140,7 @@ function GameOverState(game) {
   game.log('You blew up!');
 
   for (var i in game.mines) {
-    game.mines[i].reveal();
+    game.mines[i].reveal_mine();
   }
 };
 GameOverState.prototype = Object.create(GameState.prototype);

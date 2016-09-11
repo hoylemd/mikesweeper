@@ -91,5 +91,9 @@ function MinesweeperGame() {
 
     return tiles;
   }
+
+  this.reveal_area = function MinesweeperGame_reveal_area(seed) {
+    var stack = [];
+  }
 }
 MinesweeperGame.prototype = Object.create(Game.prototype);

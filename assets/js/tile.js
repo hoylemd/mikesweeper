@@ -81,11 +81,18 @@ function Tile(column, row) {
     // center the text
     adjacent_text.x = (this.width - adjacent_text.width) / 2;
     adjacent_text.y = (this.height - adjacent_text.height) / 2;
+  };
+
+  this.reveal = function Tile_reveal() {
+    this.excavated = true;
+    ground_sprite.texture = excavated_texture;
+    if (this.mined) {
+      contents_sprite.visible = true;
+    }
   }
 
   this.dig = function Tile_dig() {
-    this.excavated = true;
-    ground_sprite.texture = excavated_texture;
+    this.reveal();
 
     if (this.mined) {
       contents_sprite.texture = exploded_texture;
@@ -108,10 +115,9 @@ function Tile(column, row) {
     this.events['flagged'] = {state: this.flagged};
   };
 
-  this.reveal = function Tile_reveal() {
+  this.reveal_mine = function Tile_reveal_mine() {
     if (this.mined) {
-      ground_sprite.texture = excavated_texture;
-      contents_sprite.visible = true;
+      this.reveal();
     }
   };
 
