@@ -91,9 +91,5 @@ function MinesweeperGame() {
 
     return tiles;
   }
-
-  this.report_mines = function MinesweeperGame_report_mines() {
-    this.log('There are ' + this.remaining_mines + ' mines remaining.');
-  }
 }
 MinesweeperGame.prototype = Object.create(Game.prototype);

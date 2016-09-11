@@ -97,7 +97,7 @@ function InitializingState(game) {
 
     // start!
     game.log('Welcome to MikeSweeper!');
-    game.report_mines();
+    game.log('There are ' + game.remaining_mines + ' mines.');
     game.transition('main');
   };
 }
@@ -123,6 +123,18 @@ function MainState(game) {
 };
 MainState.prototype = Object.create(GameState.prototype);
 all_states['main'] = MainState;
+
+function GameOverState(game) {
+  this.name = 'game_over';
+
+  game.log('You blew up!');
+
+  for (var i in game.mines) {
+    game.mines[i].reveal();
+  }
+};
+GameOverState.prototype = Object.create(GameState.prototype);
+all_states['game_over'] = GameOverState;
 
 function get_all_states() {
   all_states.__initial__ = 'loading_assets';
