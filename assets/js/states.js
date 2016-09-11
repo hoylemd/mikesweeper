@@ -55,7 +55,11 @@ function InitializingState(game) {
   this.event_handlers = {};
 
   this.update = function InitializingState_update(timedelta) {
+    // initialize
     game.grid = [];
+
+
+    // create the tiles
     for (var x = 0; x < game.GRID_COLUMNS; x += 1) {
       game.grid[x] = [];
       for (var y = 0; y < game.GRID_COLUMNS; y += 1) {
@@ -64,6 +68,10 @@ function InitializingState(game) {
         game.addTile(tile);
       }
     }
+
+    // add the mines
+
+    // start!
     game.log('Welcome to MikeSweeper!');
     game.transition('main');
   };
