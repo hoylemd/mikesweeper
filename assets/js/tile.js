@@ -73,13 +73,13 @@ function Tile(column, row) {
   // stage changers
   this.dig = function Tile_dig() {
     this.excavated = true;
-    this.ground_sprite.texture = excavated_texture;
+    ground_sprite.texture = excavated_texture;
 
     if (this.mined) {
-      this.contents_sprite.texture = exploded_texture;
-      this.contents_sprite.visible = true;
+      contents_sprite.texture = exploded_texture;
+      contents_sprite.visible = true;
 
-      this.events['exploded'] = true;'
+      this.events['exploded'] = true;
     } else {
       if (this.adjacent) {
         adjacent_text.visible = true;
@@ -91,7 +91,7 @@ function Tile(column, row) {
 
   this.flag = function Tile_flag() {
     this.flagged = true;
-    this.contents_sprite.texture = flag_texture;
+    contents_sprite.texture = flag_texture;
 
     if (this.mined) {
       this.events['mine_found'] = true;
