@@ -16,7 +16,6 @@ function Tile(column, row) {
   // textures
   var ground_texture = TextureCache['ground.png'];
   var excavated_texture = TextureCache['excavated.png'];
-  var flag_texture = TextureCache['flag.png'];
   var mine_texture = TextureCache['mine.png'];
   var exploded_texture = TextureCache['exploded.png'];
 
@@ -25,9 +24,13 @@ function Tile(column, row) {
   var ground_sprite = new PIXI.Sprite(ground_texture);
   this.addChild(ground_sprite);
 
-  var contents_sprite = new PIXI.Sprite(flag_texture);
+  var contents_sprite = new PIXI.Sprite(mine_texture);
   contents_sprite.visible = false;
   this.addChild(contents_sprite);
+
+  var flag_sprite = new PIXI.Sprite(TextureCache['flag.png']);
+  flag_sprite.visible = false;
+  this.addChild(flag_sprite);
 
   var highlight = new PIXI.Sprite(TextureCache['highlight.png']);
   highlight.visible = false;
@@ -99,18 +102,16 @@ function Tile(column, row) {
   }
 
   this.flag = function Tile_flag() {
-    this.flagged = true;
-    contents_sprite.texture = flag_texture;
+      this.flagged = !this.flagged;
+      flag_sprite.visible = this.flagged;
 
-    if (this.mined) {
-      this.events['mine_found'] = true;
+      this.events['flagged'] = {state: this.flagged};
     }
   };
 
   this.reveal = function Tile_reveal() {
     if (this.mined) {
       ground_sprite.texture = excavated_texture;
-      contents_sprite.texture = mine_texture;
       contents_sprite.visible = true;
     }
   };
