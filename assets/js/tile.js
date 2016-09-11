@@ -42,6 +42,12 @@ function Tile(column, row) {
   this.row = row;
   this.y = TILE_WIDTH * row;
 
+  // game info
+  this.excavated = false;
+  this.mined = false;
+  this.adjacent = 0;
+  this.flagged = false;
+
   // engine methods
   this.update = function Tile_update(timedelta) {
     var new_events = this.events;
@@ -53,8 +59,7 @@ function Tile(column, row) {
   this.interactive = true;
 
   this.click = function Tile_click() {
-    console.log(this.name + ' clicked');
-    this.events['click'] = [];
+    this.dig();
   };
 
   this.mouseover = function Tile_mouseover() {
@@ -64,6 +69,34 @@ function Tile(column, row) {
   this.mouseout = function Tile_mouseout() {
     highlight.visible = false;
   };
+
+  // stage changers
+  this.dig = function Tile_dig() {
+    this.excavated = true;
+    this.ground_sprite.texture = excavated_texture;
+
+    if (this.mined) {
+      this.contents_sprite.texture = exploded_texture;
+      this.contents_sprite.visible = true;
+
+      this.events['exploded'] = true;'
+    } else {
+      if (this.adjacent) {
+        adjacent_text.visible = true;
+      } else {
+        this.events['reveal_area'] = true;
+      }
+    }
+  }
+
+  this.flag = function Tile_flag() {
+    this.flagged = true;
+    this.contents_sprite.texture = flag_texture;
+
+    if (this.mined) {
+      this.events['mine_found'] = true;
+    }
+  }
 
   // Set interactions (maybe I don't need this)
   this.on('mouseup', this.click)
