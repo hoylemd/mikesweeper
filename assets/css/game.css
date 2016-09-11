@@ -1,0 +1,18 @@
+body {
+  background-color: #222222;
+}
+
+.game_area {
+  width: 100%;
+}
+
+.game_canvas, .game_log {
+  float: left;
+}
+
+.game_log {
+  color: #CCFFCC;
+  max-width: 40em;
+  margin-left: 25px;
+}
+
