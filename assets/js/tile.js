@@ -22,12 +22,18 @@ function Tile(column, row) {
   // graphics objects
   PIXI.Container.call(this);
   var ground_sprite = new PIXI.Sprite(ground_texture);
+  this.addChild(ground_sprite);
+
   var contents_sprite = new PIXI.Sprite(flag_texture);
   contents_sprite.visible = false;
+  this.addChild(contents_sprite);
+
+  var highlight = new PIXI.Sprite(TextureCache['highlight.png']);
+  highlight.visible = false;
+  this.addChild(highlight);
+
   var adjacent_text = new PIXI.Text('')
   adjacent_text.visible - false;
-  this.addChild(ground_sprite);
-  this.addChild(contents_sprite);
   this.addChild(adjacent_text);
 
   // positioning
@@ -47,15 +53,23 @@ function Tile(column, row) {
   this.interactive = true;
 
   this.click = function Tile_click() {
+    console.log(this.name + ' clicked');
     this.events['click'] = [];
   };
 
   this.mouseover = function Tile_mouseover() {
+    highlight.visible = true;
   };
 
-  // Set interactions
+  this.mouseout = function Tile_mouseout() {
+    highlight.visible = false;
+  };
+
+  // Set interactions (maybe I don't need this)
   this.on('mouseup', this.click)
       .on('touchend', this.click);
+
+  this.name = '(' + this.column + ',' + this.row + ')';
 }
 Tile.prototype = Object.create(PIXI.Container.prototype);
 
