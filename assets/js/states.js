@@ -29,7 +29,7 @@ function LoadingAssetsState(game) {
 
       // Define Textures and Atlases to load here
       var textures = [];
-      var texture_atlases = [];
+      var texture_atlases = ['assets/sprites/sprites.json'];
       // Done defining Textures and Atlases
 
       PIXI.loader.add(textures)
@@ -55,7 +55,17 @@ function InitializingState(game) {
   this.event_handlers = {};
 
   this.update = function InitializingState_update(timedelta) {
-    this.game.transition('main');
+    game.grid = [];
+    for (var x = 0; x < game.GRID_COLUMNS; x += 1) {
+      game.grid[x] = [];
+      for (var y = 0; y < game.GRID_COLUMNS; y += 1) {
+        var tile = new Tile(x, y);
+
+        game.addTile(tile);
+      }
+    }
+    game.log('Welcome to MikeSweeper!');
+    game.transition('main');
   };
 }
 InitializingState.prototype = Object.create(GameState.prototype);
@@ -66,7 +76,13 @@ function MainState(game) {
 
   this.name = 'main';
 
-  this.event_handlers = {};
+  function handle_log(object, arguments) {
+    game.log(arguments.message);
+  }
+
+  this.event_handlers = {
+    'log': handle_log
+  };
 
   this.update = function MainState_update(timedelta) {
     console.log('main');
