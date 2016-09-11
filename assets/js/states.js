@@ -4,6 +4,8 @@
 //   GameState
 // from tile.js:
 //   Tile
+// fom utils.js:
+//   random_int(min, max)
 
 // Global list of states
 var all_states = {};
@@ -57,12 +59,12 @@ function InitializingState(game) {
   this.update = function InitializingState_update(timedelta) {
     // initialize
     game.grid = [];
-
+    game.mines = [];
 
     // create the tiles
     for (var x = 0; x < game.GRID_COLUMNS; x += 1) {
       game.grid[x] = [];
-      for (var y = 0; y < game.GRID_COLUMNS; y += 1) {
+      for (var y = 0; y < game.GRID_ROWS; y += 1) {
         var tile = new Tile(x, y);
 
         game.addTile(tile);
@@ -70,9 +72,32 @@ function InitializingState(game) {
     }
 
     // add the mines
+    for (var i = 0; i < game.MINE_COUNT; i += 1) {
+      var done = false;
+      while (!done) {
+        var x = random_int(game.GRID_COLUMNS);
+        var y = random_int(game.GRID_ROWS);
+
+        var tile = game.grid[x][y];
+
+        if (!tile.mined) {
+          tile.mined = true;
+          var adjacent_tiles = game.get_adjacent_tiles(x, y);
+          for (var j in adjacent_tiles) {
+            var adjacent = adjacent_tiles[j];
+            adjacent.increment_adjacent();
+          }
+
+          game.remaining_mines += 1;
+          game.mines.push(tile);
+          done = true;
+        }
+      }
+    }
 
     // start!
     game.log('Welcome to MikeSweeper!');
+    game.report_mines();
     game.transition('main');
   };
 }
