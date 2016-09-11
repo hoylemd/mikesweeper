@@ -8,6 +8,8 @@ function MinesweeperGame() {
   this.GRID_COLUMNS = 16;
   this.GRID_ROWS = 16;
 
+  this.MINE_COUNT = 16;
+
   var BACKGROUND_COLOUR = 0x999999;
 
   this.width = this.GRID_COLUMNS * Tile.TILE_WIDTH;
