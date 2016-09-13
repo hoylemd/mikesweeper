@@ -48,13 +48,14 @@ function MinesweeperGame() {
     this.game_objects.push(tile);
   };
 
-  this.get_adjacent_tiles = function MinesweeperGame_get_adjacent_tiles(x, y) {
+  this.get_adjacent_tiles = function MinesweeperGame_get_adjacent_tiles(
+      column, row) {
     var tiles = [];
 
-    var left = x - 1;
-    var right = x + 1;
-    var up = y - 1;
-    var down = y + 1;
+    var left = column - 1;
+    var right = column + 1;
+    var up = row - 1;
+    var down = row + 1;
 
     var left_ok = left >= 0;
     var right_ok = right < this.GRID_COLUMNS;
@@ -65,25 +66,25 @@ function MinesweeperGame() {
       if (up_ok) {
         tiles.push(this.grid[left][up]);
       }
-      tiles.push(this.grid[left][y]);
+      tiles.push(this.grid[left][row]);
       if (down_ok) {
         tiles.push(this.grid[left][down]);
       }
     }
 
     if (up_ok) {
-      tiles.push(this.grid[x][up]);
+      tiles.push(this.grid[column][up]);
     }
-    tiles.push(this.grid[x][y]);
+    tiles.push(this.grid[column][row]);
     if (down_ok) {
-      tiles.push(this.grid[x][down]);
+      tiles.push(this.grid[column][down]);
     }
 
     if (right_ok) {
       if (up_ok) {
         tiles.push(this.grid[right][up]);
       }
-      tiles.push(this.grid[right][y]);
+      tiles.push(this.grid[right][row]);
       if (down_ok) {
         tiles.push(this.grid[right][down]);
       }
@@ -93,7 +94,24 @@ function MinesweeperGame() {
   }
 
   this.reveal_area = function MinesweeperGame_reveal_area(seed) {
-    var stack = [];
+    var stack = [seed];
+
+    while(stack.length) {
+      var next = stack.pop();
+      if (!next.adjacent) {
+        var adjacents = this.get_adjacent_tiles(next.column, next.row);
+        for (var i = 0; i < adjacents.length; i += 1) {
+          var adjacent = adjacents[i];
+          if (!adjacent.excavated) {
+            adjacent.reveal();
+
+            if (!adjacent.adjacent) {
+              stack.push(adjacent);
+            }
+          }
+        }
+      }
+    }
   }
 }
 MinesweeperGame.prototype = Object.create(Game.prototype);

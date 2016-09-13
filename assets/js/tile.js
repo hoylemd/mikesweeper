@@ -89,6 +89,9 @@ function Tile(column, row) {
     if (this.mined) {
       contents_sprite.visible = true;
     }
+    if (this.adjacent) {
+      adjacent_text.visible = true;
+    }
   }
 
   this.dig = function Tile_dig() {
@@ -99,12 +102,8 @@ function Tile(column, row) {
       contents_sprite.visible = true;
 
       this.events['exploded'] = true;
-    } else {
-      if (this.adjacent) {
-        adjacent_text.visible = true;
-      } else {
-        this.events['reveal_area'] = true;
-      }
+    } else if (!this.adjacent) {
+      this.events['reveal_area'] = true;
     }
   }
 
@@ -126,6 +125,9 @@ function Tile(column, row) {
       .on('touchend', this.click);
 
   this.name = '(' + this.column + ',' + this.row + ')';
+  this.stringify = function() {
+    return 'Tile(' + this.column + ',' + this.row + ')' + '[' + this.adjacent + ']' + (this.mined ? '*' : '');
+  }
 }
 Tile.prototype = Object.create(PIXI.Container.prototype);
 
