@@ -75,7 +75,6 @@ function MinesweeperGame() {
     if (up_ok) {
       tiles.push(this.grid[column][up]);
     }
-    tiles.push(this.grid[column][row]);
     if (down_ok) {
       tiles.push(this.grid[column][down]);
     }
