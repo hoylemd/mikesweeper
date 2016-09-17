@@ -22,6 +22,7 @@ function Tile(column, row) {
   // graphics objects
   PIXI.Container.call(this);
   var ground_sprite = new PIXI.Sprite(ground_texture);
+  this.ground_sprite = ground_sprite;
   this.addChild(ground_sprite);
 
   var contents_sprite = new PIXI.Sprite(mine_texture);
@@ -62,8 +63,13 @@ function Tile(column, row) {
   // Input handlers
   this.interactive = true;
 
-  this.click = function Tile_click() {
-    this.dig();
+  this.click = function Tile_click(event) {
+    // flag if shift is held
+    if (event.data.originalEvent.shiftKey) {
+      this.flag();
+    } else {
+      this.dig();
+    }
   };
 
   this.mouseover = function Tile_mouseover() {
@@ -119,10 +125,6 @@ function Tile(column, row) {
       this.reveal();
     }
   };
-
-  // Set interactions (maybe I don't need this)
-  this.on('mouseup', this.click)
-      .on('touchend', this.click);
 
   this.name = '(' + this.column + ',' + this.row + ')';
   this.stringify = function() {
