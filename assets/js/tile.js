@@ -94,8 +94,7 @@ function Tile(column, row) {
     ground_sprite.texture = excavated_texture;
     if (this.mined) {
       contents_sprite.visible = true;
-    }
-    if (this.adjacent) {
+    } else if (this.adjacent) {
       adjacent_text.visible = true;
     }
   }

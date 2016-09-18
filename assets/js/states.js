@@ -60,6 +60,7 @@ function InitializingState(game) {
     // initialize
     game.grid = [];
     game.mines = [];
+    game.flags = [];
 
     // create the tiles
     for (var x = 0; x < game.GRID_COLUMNS; x += 1) {
@@ -121,10 +122,28 @@ function MainState(game) {
     game.reveal_area(object);
   }
 
+  function handle_flagged(object) {
+    if (object.flagged) {
+      game.flags.push(object);
+    } else {
+      game.flags.remove(object);
+    }
+
+    // update remaining mine count.
+    if (object.mined) {
+      game.remaining_mines += object.flagged ? -1 : 1;
+    }
+
+    if (game.remaining_mines <= 0) {
+      game.transition('game_over');
+    }
+  }
+
   this.event_handlers = {
     'log': handle_log,
     'exploded': handle_exploded,
-    'reveal_area': handle_reveal_area
+    'reveal_area': handle_reveal_area,
+    'flagged': handle_flagged
   };
 
   this.update = function MainState_update(timedelta) {
@@ -137,7 +156,12 @@ all_states['main'] = MainState;
 function GameOverState(game) {
   this.name = 'game_over';
 
-  game.log('You blew up!');
+  if (game.remaining_mines) {
+    game.log('You blew up!');
+  } else {
+    game.log('Cool! You got them all!');
+  }
+  game.log('Click on the field to play again.');
 
   for (var i in game.mines) {
     game.mines[i].reveal_mine();
