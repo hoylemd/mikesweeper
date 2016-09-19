@@ -65,11 +65,7 @@ function Tile(column, row) {
 
   this.click = function Tile_click(event) {
     // flag if shift is held
-    if (event.data.originalEvent.shiftKey) {
-      this.flag();
-    } else {
-      this.dig();
-    }
+    this.events['tile_clicked'] = event.data.originalEvent.shiftKey
   };
 
   this.mouseover = function Tile_mouseover() {

@@ -126,7 +126,7 @@ function MainState(game) {
     if (object.flagged) {
       game.flags.push(object);
     } else {
-      game.flags.remove(object);
+      game.flags.splice(game.flags.indexOf(object), 1);
     }
 
     // update remaining mine count.
@@ -139,11 +139,20 @@ function MainState(game) {
     }
   }
 
+  function handle_tile_clicked(object, shift) {
+    if (shift) {
+      object.flag();
+    } else {
+      object.dig();
+    }
+  }
+
   this.event_handlers = {
     'log': handle_log,
     'exploded': handle_exploded,
     'reveal_area': handle_reveal_area,
-    'flagged': handle_flagged
+    'flagged': handle_flagged,
+    'tile_clicked': handle_tile_clicked
   };
 
   this.update = function MainState_update(timedelta) {
@@ -154,6 +163,8 @@ MainState.prototype = Object.create(GameState.prototype);
 all_states['main'] = MainState;
 
 function GameOverState(game) {
+  GameState.call(this, game);
+
   this.name = 'game_over';
 
   if (game.remaining_mines) {
@@ -166,6 +177,15 @@ function GameOverState(game) {
   for (var i in game.mines) {
     game.mines[i].reveal_mine();
   }
+
+  function handle_click(object) {
+    game.reset()
+    game.transition('initializing');
+  }
+
+  this.event_handlers = {
+    'tile_clicked': handle_click
+  };
 };
 GameOverState.prototype = Object.create(GameState.prototype);
 all_states['game_over'] = GameOverState;

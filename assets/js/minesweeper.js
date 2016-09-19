@@ -20,13 +20,12 @@ function MinesweeperGame() {
 
   this.grid = null;
   this.mines = null;
+  this.flags = null;
   this.remaining_mines = 0;
 
   Game.call(this);
 
   this.reset = function MinesweeperGame_reset() {
-    this.stage.removeChild(this.lines);
-
     for (var i = 0; i < this.GRID_COLUMNS; i += 1) {
       for (var j = 0; j < this.GRID_ROWS; j += 1) {
         var tile = this.grid[i][j];
@@ -35,9 +34,6 @@ function MinesweeperGame() {
         this.grid[i][j] = null;
       }
     }
-
-    this.victory_line.visible = false;
-    this.stage.removeChild(this.victory_line);
 
     Game.prototype.reset.apply(this);
   };
