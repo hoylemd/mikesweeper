@@ -2,7 +2,7 @@ install:
 	npm install
 
 compile:
-	webpack assets/entry.json static/bundle.js
+	gulp --gulpfile=assets/gulpfile.js
 
 dev:
-	webpack-dev-server --progress --colors
+	echo 'broke'
