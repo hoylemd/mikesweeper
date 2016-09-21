@@ -13,6 +13,6 @@
   "author": "hoylemd",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "browserify": "^13.1.0"
   }
 }
