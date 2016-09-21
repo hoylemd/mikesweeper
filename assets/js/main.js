@@ -3,8 +3,10 @@
 // from tic_tac_toe.js:
 //   MinesweeperGame
 
+var MineSweeperGame = require('./minesweeper.js');
+
 function main() {
-  var game = new MinesweeperGame();
+  var game = new MineSweeperGame();
   window.the_game = game;
   game.start_time = what_time_is_it();
 

@@ -110,3 +110,5 @@ function MinesweeperGame() {
   }
 }
 MinesweeperGame.prototype = Object.create(Game.prototype);
+
+module.exports = MinesweeperGame;
