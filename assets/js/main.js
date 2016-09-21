@@ -1,8 +1,6 @@
-// from utils.js
-//   what_time_is_it()
+var what_time_is_it = require('./utils.js').what_time_is_it;
 
 var MineSweeperGame = require('./minesweeper.js');
-//var what_time_is_it = require('./utils.js').what_time_is_it;
 
 function main() {
   var game = new MineSweeperGame();

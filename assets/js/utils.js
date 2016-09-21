@@ -12,26 +12,7 @@ function random_int(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function print_grid(grid) {
-  function mark(x, y) {
-    var value = grid[x][y];
-    if (value === 'player') {
-      return 'X';
-    }
-    if (value === 'ai') {
-      return 'O';
-    }
-    return ' ';
-  }
-
-  var str = '';
-  str += '[' + mark(0, 0) + '][' + mark(1, 0) + '][' + mark(2, 0) + ']\n';
-  str += '[' + mark(0, 1) + '][' + mark(1, 1) + '][' + mark(2, 1) + ']\n';
-  str += '[' + mark(0, 2) + '][' + mark(1, 2) + '][' + mark(2, 2) + ']';
-
-  return str;
-}
-
+// Left in because I don't want to try to re-derive it
 function grid_rotate(grid, turns) {
    if (!turns) return grid;
 
@@ -55,6 +36,7 @@ function grid_rotate(grid, turns) {
   return grid_rotate(new_grid, turns - 1);
 }
 
+// left in because I don't want to re-derive it
 function unrotate_coords(coordinates, turns) {
   if (!turns) return coordinates;
 
@@ -65,4 +47,9 @@ function unrotate_coords(coordinates, turns) {
   return unrotate_coords(
     new Coordinates(3 - (coordinates.y + 1) , coordinates.x),
     turns - 1);
+}
+
+module.exports = {
+  what_time_is_it: what_time_is_it,
+  random_int: random_int
 }

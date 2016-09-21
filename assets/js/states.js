@@ -1,5 +1,4 @@
-// fom utils.js:
-//   random_int(min, max)
+var random_int = require('./utils.js').random_int;
 var GameState = require('./game_state.js');
 var Tile = require('./tile.js');
 
