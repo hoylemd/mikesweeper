@@ -1,8 +1,5 @@
 /* Class for game Tiles */
 
-// from pixi.js:
-//   PIXI
-
 // Alias
 var TextureCache = PIXI.utils.TextureCache;
 
@@ -130,3 +127,5 @@ Tile.prototype = Object.create(PIXI.Container.prototype);
 
 Tile.TILE_WIDTH = TILE_WIDTH;
 Tile.TILE_HEIGHT = TILE_HEIGHT;
+
+module.exports = Tile;

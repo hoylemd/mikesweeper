@@ -1,10 +1,4 @@
-// from pixi.js:
-//   PIXI
-// from tile.js:
-//   Tile
-// from states.js:
-//   get_all_states()
-function Game() {
+function Game(all_states) {
   // Set up graphics
   this.renderer = PIXI.autoDetectRenderer(this.width, this.height);
   this.renderer.backgroundColor = this.BACKGROUND_COLOUR || 0x999999;
@@ -15,7 +9,7 @@ function Game() {
   this.canvas.append(this.renderer.view);
 
   // get the states
-  this.game_states = get_all_states();
+  this.game_states = all_states;
   this.state_name = this.game_states.__initial__;
   this.transition_arguments = null;
 }
@@ -88,3 +82,5 @@ Game.prototype = {
     this.game_objects = [];
   }
 };
+
+module.exports = Game;

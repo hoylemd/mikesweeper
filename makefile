@@ -12,12 +12,13 @@ BUNDLE_NAME=bundle.js
 
 install: package.json
 	npm install
-	mkdir -p static/js
+	mkdir -p static/js/lib
 	mkdir -p static/css
 
 compile: $(JS_MAIN_PATH)
 	$(JS_COMPILE) $(JS_MAIN_PATH) -o $(STATIC_ROOT)js/$(BUNDLE_NAME)
 	cp $(CSS_ROOT)* $(STATIC_ROOT)css/
+	cp $(JS_ROOT)lib/* $(STATIC_ROOT)js/lib/
 
 dev:
 	echo 'broke'

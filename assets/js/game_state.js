@@ -20,4 +20,4 @@ GameState.prototype = {
   }
 };
 
-
+module.exports = GameState;

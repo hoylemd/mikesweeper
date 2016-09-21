@@ -1,7 +1,6 @@
-// from game.js
-//   Game
-// from tile.js
-//   Tile
+var Game = require('./game.js');
+var Tile = require('./tile.js');
+var game_states = require('./states.js');
 
 function MinesweeperGame() {
   // game-specific stuff to excise
@@ -23,7 +22,7 @@ function MinesweeperGame() {
   this.flags = null;
   this.remaining_mines = 0;
 
-  Game.call(this);
+  Game.call(this, game_states);
 
   this.reset = function MinesweeperGame_reset() {
     for (var i = 0; i < this.GRID_COLUMNS; i += 1) {

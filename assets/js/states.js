@@ -1,11 +1,7 @@
-// from pixi.js:
-//   PIXI
-// from game_state.js
-//   GameState
-// from tile.js:
-//   Tile
 // fom utils.js:
 //   random_int(min, max)
+var GameState = require('./game_state.js');
+var Tile = require('./tile.js');
 
 // Global list of states
 var all_states = {};
@@ -189,8 +185,6 @@ function GameOverState(game) {
 };
 GameOverState.prototype = Object.create(GameState.prototype);
 all_states['game_over'] = GameOverState;
+all_states.__initial__ = 'loading_assets';
 
-function get_all_states() {
-  all_states.__initial__ = 'loading_assets';
-  return all_states;
-}
+module.exports = all_states;
